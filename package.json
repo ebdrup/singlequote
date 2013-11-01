@@ -1,0 +1,28 @@
+{
+  "name": "singlequote",
+  "version": "0.0.1",
+  "description": "Transform all doubel quote strings in a piece of JavaScript code to single quoted strings",
+  "main": "index.js",
+  "scripts": {
+    "test": "bin/test.js"
+  },
+  "keywords": [
+    "JavaScript",
+    "code",
+    "double-quote",
+    "single-quote",
+    "strings",
+    "replace",
+    "reformat"
+  ],
+  "author": "Allan Ebdrup",
+  "license": "Apache 2",
+  "dependencies": {
+    "uglify-js": "~2.4"
+  },
+  "devDependencies": {
+    "mocha": "",
+    "chai": "",
+    "jshint": "~2.3.0"
+  }
+}
