@@ -10,9 +10,9 @@ describe("singlequote", function(){
 	});
 
 	it("should return code with single quotes string", function(){
-		function y(){
+		function x(){
 			return 'hello" I am a string\'s for sure';
 		}
-		expect(result).to.equal(y.toString());
+		expect(result).to.equal(x.toString());
 	});
 });
