@@ -1,16 +1,16 @@
 var singleQuote = require('..');
 
-describe("singlequote with \\r", function () {
+describe('singlequote with \\r', function () {
 	var result;
 	before(function () {
 		function x() {
-			return "hello\" I am a string's for sure";
+			return 'hello" I am a string\'s for sure';
 		}
 
 		result = singleQuote(x.toString().replace(/\r/g, '').replace(/\n/g, '\r\n')); //make sure we have \r on both mac an win
 	});
 
-	it("should return code with single quotes string", function () {
+	it('should return code with single quotes string', function () {
 		function x() {
 			return 'hello" I am a string\'s for sure';
 		}
@@ -19,17 +19,17 @@ describe("singlequote with \\r", function () {
 	});
 });
 
-describe("singlequote without \\r", function () {
+describe('singlequote without \\r', function () {
 	var result;
 	before(function () {
 		function x() {
-			return "hello\" I am a string's for sure";
+			return 'hello" I am a string\'s for sure';
 		}
 
 		result = singleQuote(x.toString().replace(/\r/g, ''));
 	});
 
-	it("should return code with single quotes string", function () {
+	it('should return code with single quotes string', function () {
 		function x() {
 			return 'hello" I am a string\'s for sure';
 		}
@@ -38,7 +38,7 @@ describe("singlequote without \\r", function () {
 	});
 });
 
-describe("singlequote already single quoted string", function () {
+describe('singlequote already single quoted string', function () {
 	var result;
 	before(function () {
 		function x() {
@@ -48,7 +48,7 @@ describe("singlequote already single quoted string", function () {
 		result = singleQuote(x.toString());
 	});
 
-	it("should return code with single quotes string", function () {
+	it('should return code with single quotes string', function () {
 		function x() {
 			return 'when customer payment term is "dueDate"';
 		}
@@ -57,26 +57,26 @@ describe("singlequote already single quoted string", function () {
 	});
 });
 
-describe("singlequote with tab in string", function () {
+describe('singlequote with tab in string', function () {
 	var code, result;
 	before(function () {
 		code = 'var x="\t"';
 		result = singleQuote(code);
 	});
 
-	it("should return code with tab in string", function () {
-		expect(result, result).to.equal("var x='\t'");
+	it('should return code with tab in string', function () {
+		expect(result, result).to.equal('var x=\'\t\'');
 	});
 });
 
-describe("singlequote with \\t in string", function () {
+describe('singlequote with \\t in string', function () {
 	var code, result;
 	before(function () {
 		code = 'var x="\\t"';
 		result = singleQuote(code);
 	});
 
-	it("should return code with \\t in string", function () {
-		expect(result, result).to.equal("var x='\\t'");
+	it('should return code with \\t in string', function () {
+		expect(result, result).to.equal('var x=\'\\t\'');
 	});
 });
