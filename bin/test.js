@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var jsHint = require("../node_modules/jshint/src/cli.js");
 if (!jsHint.run({ args: ['.']})) {
 	return setTimeout(function () {
