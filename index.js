@@ -5,6 +5,7 @@ module.exports = function singleQuote(codeIn) {
 	var hasReturn = code.indexOf('\r\n') !== -1;
 	var hasCommandLineInfo = code.substr(0, 2) === '#!';
 	var commandlineInfo = '';
+	var ast;
 	code = code.replace(/\r/g, '');
 	if (hasCommandLineInfo) {
 		var endOfLine = (code.indexOf('\n') + 1);
@@ -14,7 +15,14 @@ module.exports = function singleQuote(codeIn) {
 		commandlineInfo = code.substr(0, endOfLine);
 		code = code.substr(endOfLine);
 	}
-	var ast = U2.parse(code);
+	try {
+		ast = U2.parse(code);
+	} catch (ex) {
+		var parseError = new Error('Error parsing code');
+		parseError.code = 'parse';
+		parseError.inner = ex;
+		throw parseError;
+	}
 	// accumulate string-nodes in this array
 	var stringNodes = [];
 	ast.walk(new U2.TreeWalker(function (node) {
@@ -33,7 +41,15 @@ module.exports = function singleQuote(codeIn) {
 		replacement = '\'' + replacement.substr(1, replacement.length - 2) + '\'';
 		code = splice_string(code, node.start.pos, node.end.endpos, replacement);
 	}
-	U2.parse(code); //do sanity-check so we don't mess up files
+	try {
+		U2.parse(code); //do sanity-check so we don't mess up files
+	} catch (ex) {
+		var parseError = new Error('Error parsing code produced by singlequote');
+		parseError.code = 'singlequote';
+		parseError.inner = ex;
+		throw parseError;
+	}
+	U2.parse(code);
 	code = commandlineInfo + code;
 	code = hasReturn ? code.replace(/\n/g, '\r\n') : code;
 	return code;
