@@ -34,7 +34,9 @@ module.exports = function singleQuote(codeIn) {
 		code = splice_string(code, node.start.pos, node.end.endpos, replacement);
 	}
 	code = commandlineInfo + code;
-	return hasReturn ? code.replace(/\n/g, '\r\n') : code;
+	code = hasReturn ? code.replace(/\n/g, '\r\n') : code;
+	U2.parse(code); //do sanity-check so we don't mess up files
+	return code;
 };
 
 function splice_string(str, begin, end, replacement) {
