@@ -1,6 +1,6 @@
 {
   "name": "singlequote",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Transform all doubel quote strings in a piece of JavaScript code to single quoted strings",
   "main": "index.js",
   "scripts": {
