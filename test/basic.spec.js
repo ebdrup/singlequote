@@ -6,7 +6,6 @@ describe('singlequote with \\r', function () {
 		function x() {
 			return 'hello" I am a string\'s for sure';
 		}
-
 		result = singleQuote(x.toString().replace(/\r/g, '').replace(/\n/g, '\r\n')); //make sure we have \r on both mac an win
 	});
 
@@ -14,7 +13,6 @@ describe('singlequote with \\r', function () {
 		function x() {
 			return 'hello" I am a string\'s for sure';
 		}
-
 		expect(result, result).to.equal(x.toString().replace(/\r/g, '').replace(/\n/g, '\r\n'));
 	});
 });
@@ -25,7 +23,6 @@ describe('singlequote without \\r', function () {
 		function x() {
 			return 'hello" I am a string\'s for sure';
 		}
-
 		result = singleQuote(x.toString().replace(/\r/g, ''));
 	});
 
@@ -33,7 +30,6 @@ describe('singlequote without \\r', function () {
 		function x() {
 			return 'hello" I am a string\'s for sure';
 		}
-
 		expect(result, result).to.equal(x.toString().replace(/\r/g, ''));
 	});
 });
@@ -44,7 +40,6 @@ describe('singlequote already single quoted string', function () {
 		function x() {
 			return 'when customer payment term is "dueDate"';
 		}
-
 		result = singleQuote(x.toString());
 	});
 
@@ -52,7 +47,6 @@ describe('singlequote already single quoted string', function () {
 		function x() {
 			return 'when customer payment term is "dueDate"';
 		}
-
 		expect(result, result).to.equal(x.toString());
 	});
 });
@@ -78,5 +72,22 @@ describe('singlequote with \\t in string', function () {
 
 	it('should return code with \\t in string', function () {
 		expect(result, result).to.equal('var x=\'\\t\'');
+	});
+});
+
+describe('singlequote with #!/usr/bin/env node', function () {
+	var result;
+	before(function () {
+		function x() {
+			return 'hello" I am a string\'s for sure';
+		}
+		result = singleQuote('#!/usr/bin/env node\n' + x.toString().replace(/\r/g, ''));
+	});
+
+	it('should return code with single quotes string', function () {
+		function x() {
+			return 'hello" I am a string\'s for sure';
+		}
+		expect(result, result).to.equal('#!/usr/bin/env node\n' + x.toString().replace(/\r/g, ''));
 	});
 });
