@@ -25,9 +25,6 @@
     "chai": "",
     "jshint": "~2.3.0"
   },
-  "bin": {
-    "singlequote": "test.js"
-  },
   "directories": {
     "test": "test"
   },
