@@ -91,3 +91,15 @@ describe('singlequote with #!/usr/bin/env node', function () {
 		expect(result, result).to.equal('#!/usr/bin/env node\n' + x.toString().replace(/\r/g, ''));
 	});
 });
+
+describe('singlequote code with return-statment in main cod (allowed in node.js)', function () {
+	var code, result;
+	before(function () {
+		code = 'var x=3;\nreturn;';
+		result = singleQuote(code);
+	});
+
+	it('should return code with \\t in string', function () {
+		expect(result, result).to.equal(code);
+	});
+});

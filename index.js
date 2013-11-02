@@ -5,6 +5,7 @@ module.exports = function singleQuote(codeIn) {
 	var hasReturn = code.indexOf('\r\n') !== -1;
 	var hasCommandLineInfo = code.substr(0, 2) === '#!';
 	var commandlineInfo = '';
+	var functionStart = '(function (){\n', functionEnd = "\n})();";
 	var ast;
 	code = code.replace(/\r/g, '');
 	if (hasCommandLineInfo) {
@@ -15,6 +16,7 @@ module.exports = function singleQuote(codeIn) {
 		commandlineInfo = code.substr(0, endOfLine);
 		code = code.substr(endOfLine);
 	}
+	code = functionStart + code + functionEnd;
 	try {
 		ast = U2.parse(code);
 	} catch (ex) {
@@ -44,12 +46,12 @@ module.exports = function singleQuote(codeIn) {
 	try {
 		U2.parse(code); //do sanity-check so we don't mess up files
 	} catch (ex) {
-		var parseError = new Error('Error parsing code produced by singlequote');
-		parseError.code = 'singlequote';
-		parseError.inner = ex;
-		throw parseError;
+		var singleQuoteError = new Error('Error parsing code produced by singlequote');
+		singleQuoteError.code = 'singlequote';
+		singleQuoteError.inner = ex;
+		throw singleQuoteError;
 	}
-	U2.parse(code);
+	code = code.substr(functionStart.length, code.length - functionStart.length - functionEnd.length);
 	code = commandlineInfo + code;
 	code = hasReturn ? code.replace(/\n/g, '\r\n') : code;
 	return code;
