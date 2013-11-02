@@ -24,29 +24,10 @@ function x(){
 }
 ```
 
+singlequote will throw an exception if the JavaScript code can not be parsed.
+
+singlequote will throw an error if there is a bug in singlequote, that would produce invalid JavaScript code.
+
 running singlequote on an entire directory of .js files
 -------------------------------------------------------
-You need to have the module `findit` installed in your solution.
-
-```js
-var finder = require('findit')(process.argv[2] || '.');
-var fs = require('fs');
-var singleQuote = require('singlequote');
-
-finder.on('file', function (file) {
-	if (/\.js$/.test(file)) {
-		var code = fs.readFileSync(file, "utf-8");
-		var codeWithSingleQuotes;
-		try {
-			codeWithSingleQuotes = singleQuote(code);
-		} catch (ex) {
-			console.log("Error parsing %s", file, ex);
-			return;
-		}
-		if (code !== codeWithSingleQuotes) {
-			console.log("replacing double quoted strings with single quoted strings in %s", file);
-			fs.writeFileSync(file, codeWithSingleQuotes, "utf-8");
-		}
-	}
-});
-```
+Use the command line tool [jsq](https://github.com/Muscula/jsq)
