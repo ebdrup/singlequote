@@ -2,6 +2,7 @@ var U2 = require('uglify-js');
 
 module.exports = function singleQuote(codeIn) {
 	var code = codeIn;
+	var codeParts = [];
 	var hasReturn = code.indexOf('\r\n') !== -1;
 	var hasUtf8Bom = code.indexOf('\ufeff') === 0;
 	if(hasUtf8Bom){
@@ -37,6 +38,7 @@ module.exports = function singleQuote(codeIn) {
 		}
 	}));
 	// now go through the nodes backwards and replace code
+	var processedPos = code.length;
 	for (var i = stringNodes.length; --i >= 0;) {
 		var node = stringNodes[i];
 		var replacement = code.substr(node.start.pos, node.end.endpos - node.start.pos);
@@ -45,8 +47,12 @@ module.exports = function singleQuote(codeIn) {
 		}
 		replacement = replacement.replace(/\\"/g, '"').replace(/'/g, '\\\'');
 		replacement = '\'' + replacement.substr(1, replacement.length - 2) + '\'';
-		code = splice_string(code, node.start.pos, node.end.endpos, replacement);
+		codeParts.unshift(code.substr(node.end.endpos, processedPos-node.end.endpos));
+		codeParts.unshift(replacement);
+		processedPos = node.start.pos;
 	}
+	codeParts.unshift(code.substr(0, processedPos));
+	code = codeParts.join('');
 	try {
 		U2.parse(code); //do sanity-check so we don't mess up files
 	} catch (ex) {
@@ -61,7 +67,3 @@ module.exports = function singleQuote(codeIn) {
 	code = hasUtf8Bom ? '\ufeff' + code : code;
 	return code;
 };
-
-function splice_string(str, begin, end, replacement) {
-	return str.substr(0, begin) + replacement + str.substr(end);
-}
