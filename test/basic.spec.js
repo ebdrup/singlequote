@@ -92,6 +92,23 @@ describe('singlequote with #!/usr/bin/env node', function () {
 	});
 });
 
+describe.only('singlequote code with UTF-8 Byte Order Mark and #!/usr/bin/env node', function () {
+	var result;
+	before(function () {
+		function x() {
+			return 'hello" I am a string\'s for sure';
+		}
+		result = singleQuote('\ufeff#!/usr/bin/env node\n' + x.toString().replace(/\r/g, ''));
+	});
+
+	it('should return code with single quotes string', function () {
+		function x() {
+			return 'hello" I am a string\'s for sure';
+		}
+		expect(result, result).to.equal('\ufeff#!/usr/bin/env node\n' + x.toString().replace(/\r/g, ''));
+	});
+});
+
 describe('singlequote code with return-statment in main cod (allowed in node.js)', function () {
 	var code, result;
 	before(function () {

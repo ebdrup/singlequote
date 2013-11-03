@@ -3,6 +3,10 @@ var U2 = require('uglify-js');
 module.exports = function singleQuote(codeIn) {
 	var code = codeIn;
 	var hasReturn = code.indexOf('\r\n') !== -1;
+	var hasUtf8Bom = code.indexOf('\ufeff') === 0;
+	if(hasUtf8Bom){
+		code = code.substr(1); //remove utf-8 BOM
+	}
 	var hasCommandLineInfo = code.substr(0, 2) === '#!';
 	var commandlineInfo = '';
 	var functionStart = '(function (){\n', functionEnd = "\n})();";
@@ -54,6 +58,7 @@ module.exports = function singleQuote(codeIn) {
 	code = code.substr(functionStart.length, code.length - functionStart.length - functionEnd.length);
 	code = commandlineInfo + code;
 	code = hasReturn ? code.replace(/\n/g, '\r\n') : code;
+	code = hasUtf8Bom ? '\ufeff' + code : code;
 	return code;
 };
 
