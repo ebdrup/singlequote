@@ -92,7 +92,7 @@ describe('singlequote with #!/usr/bin/env node', function () {
 	});
 });
 
-describe.only('singlequote code with UTF-8 Byte Order Mark and #!/usr/bin/env node', function () {
+describe('singlequote code with UTF-8 Byte Order Mark and #!/usr/bin/env node', function () {
 	var result;
 	before(function () {
 		function x() {
