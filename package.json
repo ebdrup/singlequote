@@ -4,7 +4,7 @@
   "description": "Transform all doubel quote strings in a piece of JavaScript code to single quoted strings",
   "main": "index.js",
   "scripts": {
-    "test": "node bin/test.js"
+    "test": "node test.js"
   },
   "keywords": [
     "JavaScript",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "mocha": "",
     "chai": "",
-    "jshint": "~2.3.0"
+    "mocha-jshint": ""
   },
   "directories": {
     "test": "test"
