@@ -18,12 +18,12 @@
   "author": "Allan Ebdrup",
   "license": "Apache v2",
   "dependencies": {
-    "uglify-js": "~2.4"
+    "uglify-js": "2.4.24"
   },
   "devDependencies": {
-    "mocha": "",
-    "chai": "",
-    "mocha-jshint": ""
+    "mocha": "2.3.3",
+    "chai": "3.3.0",
+    "mocha-jshint": "2.2.3"
   },
   "directories": {
     "test": "test"
