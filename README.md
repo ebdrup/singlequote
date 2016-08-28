@@ -31,3 +31,7 @@ singlequote will throw an error if there is a bug in singlequote, that would pro
 running singlequote on an entire directory of .js files
 -------------------------------------------------------
 Use the command line tool [jsq](https://github.com/Muscula/jsq)
+
+License
+-------
+MIT
